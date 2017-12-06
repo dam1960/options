@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2017. David A. Miranda
+ */
+
 package com.dam.options.charts;
 
 import com.dam.options.database.dao.ChartDAO;
