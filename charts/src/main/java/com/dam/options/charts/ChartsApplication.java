@@ -56,7 +56,7 @@ public class ChartsApplication {
 
                 Chart[] chartsArray = restTemplate.getForObject(url, Chart[].class);
                 List<Chart> charts = Arrays.asList(chartsArray);
-                chartDAO().save(charts);
+                chartDAO().save(charts, symbol);
             }
         };
     }

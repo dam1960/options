@@ -28,13 +28,13 @@ public class ChartDAOImpl implements ChartDAO {
     private JdbcTemplate jdbcTemplate;
     
     @Override
-    public int save(final List<Chart> charts) {
+    public int save(final List<Chart> charts, final String symbol) {
         jdbcTemplate.batchUpdate("INSERT INTO dbo.chart " +
                 "(symbol, [date], high, low, cloze, volume, unadjustedVolume, [change], changePercent, vwap, label, changeOverTime) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
-                ps.setString(1, "A");
+                ps.setString(1, symbol);
                 ps.setDate(2, charts.get(i).getDate());
                 ps.setDouble(3, charts.get(i).getHigh());
                 ps.setDouble(4, charts.get(i).getLow());
