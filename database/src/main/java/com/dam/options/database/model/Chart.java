@@ -12,7 +12,13 @@ import java.math.BigDecimal;
 public class Chart {
 
   private String symbol;
-  private java.sql.Date date;
+
+  @JsonProperty("date")
+  private java.sql.Date datee;
+
+  @JsonProperty("open")
+  private double openn;
+
   private double high;
   private double low;
 
@@ -21,12 +27,14 @@ public class Chart {
 
   private long volume;
   private long unadjustedVolume;
-  private double change;
+
+  @JsonProperty("change")
+  private double changee;
+
   private double changePercent;
   private double vwap;
   private String label;
   private BigDecimal changeOverTime;
-
 
   public String getSymbol() {
     return symbol;
@@ -37,14 +45,21 @@ public class Chart {
   }
 
 
-  public java.sql.Date getDate() {
-    return date;
+  public java.sql.Date getDatee() {
+    return datee;
   }
 
-  public void setDate(java.sql.Date date) {
-    this.date = date;
+  public void setDatee(java.sql.Date datee) {
+    this.datee = datee;
   }
 
+  public double getOpenn() {
+    return openn;
+  }
+
+  public void setOpenn(double openn) {
+    this.openn = openn;
+  }
 
   public double getHigh() {
     return high;
@@ -91,12 +106,12 @@ public class Chart {
   }
 
 
-  public double getChange() {
-    return change;
+  public double getChangee() {
+    return changee;
   }
 
-  public void setChange(double change) {
-    this.change = change;
+  public void setChangee(double changee) {
+    this.changee = changee;
   }
 
 
