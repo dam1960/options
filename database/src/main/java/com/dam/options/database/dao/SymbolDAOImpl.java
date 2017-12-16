@@ -8,6 +8,7 @@ import com.dam.options.database.model.Symbol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,6 +22,10 @@ public class SymbolDAOImpl implements SymbolDAO {
 
     @Override
     public int save(final List<Symbol> symbols) {
+
+        SimpleJdbcCall clearData = new SimpleJdbcCall(jdbcTemplate).withProcedureName("prepareForReload");
+        clearData.execute();
+
         jdbcTemplate.batchUpdate("insert into dbo.symbol (symbol, name, date, isEnabled) values(?, ?, ?, ?)", new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {

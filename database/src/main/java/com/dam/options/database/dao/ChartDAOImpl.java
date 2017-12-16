@@ -13,6 +13,7 @@ import com.dam.options.database.model.Chart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class ChartDAOImpl implements ChartDAO {
     
     @Override
     public int save(final List<Chart> charts, final String symbol) {
+
         jdbcTemplate.batchUpdate("INSERT INTO dbo.chart " +
                 "(symbol, datee, openn, high, low, cloze, volume, unadjustedVolume, changee, changePercent, vwap, label, changeOverTime) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new BatchPreparedStatementSetter() {
@@ -54,8 +56,15 @@ public class ChartDAOImpl implements ChartDAO {
                 return charts.size();
             }
         });
+
+
         
         return 0;
     }
-    
+
+    @Override
+    public void processAllData() {
+        SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("processAllData");
+        simpleJdbcCall.execute();
+    }
 }

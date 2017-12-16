@@ -7,6 +7,8 @@ package com.dam.options.symbols;
 import com.dam.options.database.dao.SymbolDAO;
 import com.dam.options.database.dao.SymbolDAOImpl;
 import com.dam.options.database.model.Symbol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @SpringBootApplication
 public class SymbolsApplication {
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private String url = "https://api.iextrading.com/1.0/ref-data/symbols";
 
@@ -37,11 +40,15 @@ public class SymbolsApplication {
     }
 
     @Bean
-    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+    public CommandLineRunner run(RestTemplate restTemplate) {
         return args -> {
             Symbol[] symbolsArray = restTemplate.getForObject(url, Symbol[].class);
             List<Symbol> symbols = Arrays.asList(symbolsArray);
-            symbolDAO().save(symbols);
+            try {
+                symbolDAO().save(symbols);
+            } catch (Exception e) {
+                logger.error("Symbol Exception", e);
+            }
         };
 
     }

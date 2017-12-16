@@ -68,6 +68,10 @@ public class ChartsApplication {
                     log.error("No data for symbol found", e);
                 }
             }
+
+            chartDAO().processAllData();
         };
     }
+
+
 }

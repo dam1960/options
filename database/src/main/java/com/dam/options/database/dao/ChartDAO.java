@@ -20,5 +20,7 @@ import java.util.List;
 public interface ChartDAO {
     
     int save(List<Chart> charts, String symbol);
+
+    void processAllData();
     
 }
