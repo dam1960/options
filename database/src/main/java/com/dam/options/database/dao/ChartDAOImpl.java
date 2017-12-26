@@ -34,6 +34,7 @@ public class ChartDAOImpl implements ChartDAO {
         jdbcTemplate.batchUpdate("INSERT INTO dbo.chart " +
                 "(symbol, datee, openn, high, low, cloze, volume, unadjustedVolume, changee, changePercent, vwap, label, changeOverTime) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new BatchPreparedStatementSetter() {
+
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ps.setString(1, symbol);
