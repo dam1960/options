@@ -8,13 +8,14 @@ package com.dam.options.database.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 public class Chart {
 
   private String symbol;
 
   @JsonProperty("date")
-  private java.sql.Date datee;
+  private String datee;
 
   @JsonProperty("open")
   private double openn;
@@ -45,11 +46,11 @@ public class Chart {
   }
 
 
-  public java.sql.Date getDatee() {
+  public String getDatee() {
     return datee;
   }
 
-  public void setDatee(java.sql.Date datee) {
+  public void setDatee(String datee) {
     this.datee = datee;
   }
 

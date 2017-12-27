@@ -38,7 +38,7 @@ public class ChartDAOImpl implements ChartDAO {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ps.setString(1, symbol);
-                ps.setDate(2, charts.get(i).getDatee());
+                ps.setString(2, charts.get(i).getDatee());
                 ps.setDouble(3, charts.get(i).getOpenn());
                 ps.setDouble(4, charts.get(i).getHigh());
                 ps.setDouble(5, charts.get(i).getLow());
