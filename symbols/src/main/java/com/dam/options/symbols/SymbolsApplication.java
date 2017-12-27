@@ -42,8 +42,10 @@ public class SymbolsApplication {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) {
         return args -> {
+
             Symbol[] symbolsArray = restTemplate.getForObject(url, Symbol[].class);
             List<Symbol> symbols = Arrays.asList(symbolsArray);
+
             try {
                 symbolDAO().save(symbols);
             } catch (Exception e) {

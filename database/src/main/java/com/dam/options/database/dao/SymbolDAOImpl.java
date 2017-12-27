@@ -5,6 +5,8 @@
 package com.dam.options.database.dao;
 
 import com.dam.options.database.model.Symbol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,6 +19,8 @@ import java.util.Map;
 
 public class SymbolDAOImpl implements SymbolDAO {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -26,13 +30,20 @@ public class SymbolDAOImpl implements SymbolDAO {
         SimpleJdbcCall clearData = new SimpleJdbcCall(jdbcTemplate).withProcedureName("prepareForReload");
         clearData.execute();
 
-        jdbcTemplate.batchUpdate("insert into dbo.symbol (symbol, name, date, isEnabled) values(?, ?, ?, ?)", new BatchPreparedStatementSetter() {
+        jdbcTemplate.batchUpdate("INSERT INTO dbo.symbol (symbol, name, date, isEnabled) VALUES(?, ?, ?, ?)", new BatchPreparedStatementSetter() {
+
             @Override
-            public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
-                preparedStatement.setString(1, symbols.get(i).getSymbol());
-                preparedStatement.setString(2, symbols.get(i).getName());
-                preparedStatement.setDate(3, symbols.get(i).getDate());
-                preparedStatement.setBoolean(4, symbols.get(i).getIsEnabled());
+            public void setValues(PreparedStatement preparedStatement, int i) {
+                logger.info("{}  Symbol: {}", i, symbols.get(i).toString());
+
+                try {
+                    preparedStatement.setString(1, symbols.get(i).getSymbol());
+                    preparedStatement.setString(2, symbols.get(i).getName());
+                    preparedStatement.setDate(3, symbols.get(i).getDate());
+                    preparedStatement.setBoolean(4, symbols.get(i).getIsEnabled());
+                } catch (SQLException e) {
+                    logger.error("SQL Exception", e);
+                }
             }
 
             @Override
@@ -46,7 +57,7 @@ public class SymbolDAOImpl implements SymbolDAO {
 
     @Override
     public List<Map<String, Object>> getAllSymbols() {
-        List<Map<String, Object>> symbols = jdbcTemplate.queryForList("select * from dbo.symbol");
+        List<Map<String, Object>> symbols = jdbcTemplate.queryForList("SELECT * FROM dbo.symbol");
 
         return symbols;
     }

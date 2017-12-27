@@ -57,7 +57,7 @@ public class ChartsApplication {
 
             for(Map<String, Object> symbolRow : allSymbols) {
                 String symbol = symbolRow.get("symbol").toString();
-                log.info("Date: {},  Symbol: {}", symbol);
+                log.info("Symbol: {}", symbol);
                 url = String.format("https://api.iextrading.com/1.0/stock/%s/chart/3m", symbol);
 
                 try {

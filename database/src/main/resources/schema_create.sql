@@ -13,7 +13,7 @@ create table AdviseTest.dbo.chart (
   changePercent		decimal(13,3),
   vwap				decimal(13,6),
   label				varchar(25),
-  changeOverTime		decimal(22,18),
+  changeOverTime		float,
 
   constraint PK_chart primary key clustered (symbol, datee)
 );

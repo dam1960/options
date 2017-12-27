@@ -58,8 +58,6 @@ public class ChartDAOImpl implements ChartDAO {
             }
         });
 
-
-        
         return 0;
     }
 
