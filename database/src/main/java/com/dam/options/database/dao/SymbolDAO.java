@@ -14,4 +14,7 @@ public interface SymbolDAO {
     int save(List<Symbol> symbols);
 
     List<Map<String, Object>> getAllSymbols();
+
+
+    List<Map<String, Object>> getAllEnabledSymbols();
 }

@@ -53,12 +53,12 @@ public class ChartsApplication {
     public CommandLineRunner run(RestTemplate restTemplate) {
         return args -> {
 
-            List<Map<String, Object>> allSymbols = symbolDAO().getAllSymbols();
+            List<Map<String, Object>> allSymbols = symbolDAO().getAllEnabledSymbols();
 
             for(Map<String, Object> symbolRow : allSymbols) {
                 String symbol = symbolRow.get("symbol").toString();
                 log.info("Symbol: {}", symbol);
-                url = String.format("https://api.iextrading.com/1.0/stock/%s/chart/3m", symbol);
+                url = String.format("https://api.iextrading.com/1.0/stock/%s/chart/5y", symbol);
 
                 try {
                     Chart[] chartsArray = restTemplate.getForObject(url, Chart[].class);

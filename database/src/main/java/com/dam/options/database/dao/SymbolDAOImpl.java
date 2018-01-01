@@ -61,4 +61,11 @@ public class SymbolDAOImpl implements SymbolDAO {
 
         return symbols;
     }
+
+    @Override
+    public List<Map<String, Object>> getAllEnabledSymbols() {
+        List<Map<String, Object>> symbols = jdbcTemplate.queryForList("SELECT * FROM dbo.symbol where isEnabled = '1'");
+
+        return symbols;
+    }
 }
