@@ -6,11 +6,13 @@ package com.dam.options.symbols.client;
 
 import com.dam.options.database.model.Symbol;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class RestClientImpl implements  RestClient {
 
     private String url = "https://api.iextrading.com/1.0/ref-data/symbols";
